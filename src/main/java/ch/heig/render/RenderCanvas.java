@@ -9,6 +9,7 @@ import java.awt.geom.AffineTransform;
 public class RenderCanvas extends JPanel {
 
     public static final Color BACKGROUND_COLOR = new Color(0x16162a); // game render background colore
+    public static final Color BACKGROUND_COLOR_2 = new Color(0x383850); // game render background colore
 
     // GAME SETTINGS
     public static final int WIDTH = 800; // default render width
@@ -32,7 +33,7 @@ public class RenderCanvas extends JPanel {
      * @param targetWidth target width
      * @param targetHeight target height
      */
-    public void resizeGameRender(int targetWidth, int targetHeight) {
+    public void resizeRender(int targetWidth, int targetHeight) {
         actualWidth = targetWidth;
         actualHeight = targetHeight;
         if (targetWidth > targetHeight) {
@@ -75,7 +76,10 @@ public class RenderCanvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawBackground(g);
+
+        // draw background 1
+        g.setColor(BACKGROUND_COLOR);
+        g.fillRect(0, 0, actualWidth + 10, actualHeight + 10);
 
         // apply tranform, use to creat screen shake
 
@@ -84,8 +88,14 @@ public class RenderCanvas extends JPanel {
         renderTransform.scale(_renderScale, _renderScale);
         ((Graphics2D) g).transform(renderTransform);
 
+        // draw background 2
+        g.setColor(BACKGROUND_COLOR_2);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+
+
         g.setColor(Color.ORANGE);
         g.drawString("Prout", 10, 60);
+        g.drawString("Dim : "+actualWidth+" | "+actualHeight, 10, 100);
 
     /*
     AffineTransform at = new AffineTransform();
@@ -133,21 +143,6 @@ public class RenderCanvas extends JPanel {
         g.fillRect(p.x - 5, p.y - 5, 10, 10);
         */
     }
-
-
-    // #region DEFAULT GRAPHIC
-
-    /**
-     * Draw a background color
-     *
-     * @param g
-     */
-    private void drawBackground(Graphics g) {
-        g.setColor(BACKGROUND_COLOR);
-        g.fillRect(0, 0, actualWidth + 10, actualHeight + 10);
-    }
-
-    // #endregion
 
     /** Close the game render */
     public void close() {
