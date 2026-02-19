@@ -10,7 +10,7 @@ public abstract class Shape {
     int size;
     RenderShape rs;
 
-    Shape(int size, int x, int y /*,vector*/){
+    public Shape(int size, int x, int y /*,vector*/){
         rs = null;
     }
 
