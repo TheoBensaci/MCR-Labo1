@@ -4,6 +4,7 @@ import ch.heig.utils.Vector2f;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class RenderCanvas extends JPanel {
 
@@ -77,6 +78,15 @@ public class RenderCanvas extends JPanel {
         drawBackground(g);
 
         // apply tranform, use to creat screen shake
+
+        AffineTransform renderTransform = new AffineTransform();
+        renderTransform.translate(_renderOffset.x, _renderOffset.y);
+        renderTransform.scale(_renderScale, _renderScale);
+        ((Graphics2D) g).transform(renderTransform);
+
+        g.setColor(Color.ORANGE);
+        g.drawString("Prout", 10, 60);
+
     /*
     AffineTransform at = new AffineTransform();
     //at.rotate(2);
