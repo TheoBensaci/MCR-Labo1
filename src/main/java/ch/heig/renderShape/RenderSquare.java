@@ -13,6 +13,6 @@ public class RenderSquare extends RenderShape {
     @Override
     public void paint(Graphics g) {
         g.setColor(this.color);
-        g.fillOval(this.shape.getX(), this.shape.getY(), this.shape.getSize(), this.shape.getSize());
+        g.fillRect(this.shape.getX(), this.shape.getY(), this.shape.getSize(), this.shape.getSize());
     }
 }

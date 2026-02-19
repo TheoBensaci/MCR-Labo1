@@ -13,5 +13,5 @@ public abstract class RenderShape {
         this.color = color;
     }
 
-    abstract void paint(Graphics g);
+    public abstract void paint(Graphics g);
 }
