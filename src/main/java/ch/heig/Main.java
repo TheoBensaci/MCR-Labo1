@@ -7,8 +7,15 @@ public class Main {
         Window win = new Window("Bouncers");
 
 
-        while(true){
 
+        // shape update
+        while(win.isVisible()){
+
+            // update shape
+            
+
+            // repaint
+            win.repaint();
         }
     }
 }

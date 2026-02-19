@@ -2,8 +2,6 @@ package ch.heig.render;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 public class Window extends JFrame {
@@ -60,6 +58,6 @@ public class Window extends JFrame {
      * @param newWindowHeight new window height
      */
     private void resizeCanavas(int newWindowWidth, int newWindowHeight) {
-        _canvas.resizeGameRender(newWindowWidth, newWindowHeight);
+        _canvas.resizeRender(newWindowWidth, newWindowHeight);
     }
 }
