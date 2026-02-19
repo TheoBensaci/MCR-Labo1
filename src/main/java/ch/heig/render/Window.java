@@ -2,10 +2,14 @@ package ch.heig.render;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import javax.swing.JFrame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.*;
 
 public class Window extends JFrame {
     private RenderCanvas _canvas;
+    private Timer _updateTimer=null;
+
     public Window(String title) {
         super(title);
 
@@ -42,6 +46,13 @@ public class Window extends JFrame {
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(
+                new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent we) {
+                        if(_updateTimer!=null)_updateTimer.stop();
+                    }
+                });
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -60,4 +71,10 @@ public class Window extends JFrame {
     private void resizeCanavas(int newWindowWidth, int newWindowHeight) {
         _canvas.resizeRender(newWindowWidth, newWindowHeight);
     }
+
+    public void setUpdateTimer(Timer updateTimer){
+        this._updateTimer=updateTimer;
+    }
+
+
 }
