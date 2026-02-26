@@ -67,19 +67,6 @@ public class RenderCanvas extends JPanel {
         return getPreferredSize();
     }
 
-    /**
-     * get the actual render scale
-     *
-     * @return
-     */
-    public float getRenderScale() {
-        return _renderScale;
-    }
-
-    public Vector2f getRenderOffset() {
-        return _renderOffset.copy();
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -105,17 +92,11 @@ public class RenderCanvas extends JPanel {
 
 
         g.setColor(Color.ORANGE);
-        g.drawString("Prout", 10, 60);
         g.drawString("Dim : "+actualWidth+" | "+actualHeight, 10, 100);
     }
 
-    /** Close the game render */
-    public void close() {
-
-    }
 
     public void addShape(RenderShape shape){
         _shapes.add(shape);
     }
-
 }

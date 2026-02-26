@@ -25,12 +25,6 @@ public class Window extends JFrame implements Displayer{
         _canvas= new RenderCanvas(defaultSize, defaultSize);
         add(_canvas);
 
-        // create a empty canvas
-        /*
-        gameCanvas = new GameRender(this.game);
-        add(gameCanvas);
-        */
-
         addWindowStateListener(
                 e -> {
                     resizeCanavas(getContentPane().getSize().width, getContentPane().getSize().height);
