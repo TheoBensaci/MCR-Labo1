@@ -1,15 +1,20 @@
 package ch.heig.render;
 
+import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import javax.swing.JFrame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.*;
 
-public class Window extends JFrame {
+public class Window extends JFrame implements Displayer{
     private RenderCanvas _canvas;
-    public Window(String title) {
+    private Timer _updateTimer=null;
+
+    public Window(String title, int width, int height) {
         super(title);
 
-        _canvas= new RenderCanvas();
+        _canvas= new RenderCanvas(width,height);
         add(_canvas);
 
         // create a empty canvas
@@ -42,6 +47,13 @@ public class Window extends JFrame {
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(
+                new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent we) {
+                        if(_updateTimer!=null)_updateTimer.stop();
+                    }
+                });
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -60,4 +72,26 @@ public class Window extends JFrame {
     private void resizeCanavas(int newWindowWidth, int newWindowHeight) {
         _canvas.resizeRender(newWindowWidth, newWindowHeight);
     }
+
+    public void setUpdateTimer(Timer updateTimer){
+        this._updateTimer=updateTimer;
+    }
+
+
+
+    public Graphics2D getCanavasGraphics2D(){
+        return (Graphics2D)_canvas.getGraphics();
+    }
+
+
+    public int getWidth(){
+        return super.getWidth();
+    }
+    public int getHeight(){
+        return super.getHeight();
+    }
+    public Graphics2D getGraphics(){
+        return (Graphics2D) super.getGraphics();
+    }
+
 }

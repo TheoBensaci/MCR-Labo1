@@ -1,10 +1,13 @@
 package ch.heig.render;
 
+import ch.heig.renderShape.RenderShape;
 import ch.heig.utils.Vector2f;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RenderCanvas extends JPanel {
 
@@ -12,17 +15,21 @@ public class RenderCanvas extends JPanel {
     public static final Color BACKGROUND_COLOR_2 = new Color(0x383850); // game render background colore
 
     // GAME SETTINGS
-    public static final int WIDTH = 800; // default render width
-    public static final int HEIGHT = 800; // default render height
 
-    public int actualWidth = WIDTH; // actual render width
-    public int actualHeight = HEIGHT; // actual render height
+    public int actualWidth; // actual render width
+    public int actualHeight; // actual render height
+    public final int width; // origin render width
+    public final int height; // origin render height
+
+
     private float _renderScale = 1f; // actual render scale
     private Vector2f _renderOffset = new Vector2f(0, 0);
 
-    public RenderCanvas() {
-        this.actualWidth = WIDTH;
-        this.actualHeight = HEIGHT;
+    private List<RenderShape> _shapes=new ArrayList<>();
+
+    public RenderCanvas(int width, int height) {
+        this.width=this.actualWidth=width;
+        this.height=this.actualHeight=height;
         setFocusable(false);
 
     }
@@ -37,11 +44,11 @@ public class RenderCanvas extends JPanel {
         actualWidth = targetWidth;
         actualHeight = targetHeight;
         if (targetWidth > targetHeight) {
-            _renderScale = (float) (actualHeight) / HEIGHT;
-            _renderOffset.set((actualWidth - WIDTH * _renderScale) / 2, 0);
+            _renderScale = (float) (actualHeight) / width;
+            _renderOffset.set((actualWidth - height * _renderScale) / 2, 0);
         } else {
-            _renderScale = (float) (actualWidth) / WIDTH;
-            _renderOffset.set(0, (actualHeight - HEIGHT * _renderScale) / 2);
+            _renderScale = (float) (actualWidth) / height;
+            _renderOffset.set(0, (actualHeight - width * _renderScale) / 2);
         }
     }
 
@@ -90,62 +97,26 @@ public class RenderCanvas extends JPanel {
 
         // draw background 2
         g.setColor(BACKGROUND_COLOR_2);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, width, height);
+
+        // draw shapes
+        for (RenderShape shape : _shapes){
+            shape.paint(g);
+        }
 
 
         g.setColor(Color.ORANGE);
         g.drawString("Prout", 10, 60);
         g.drawString("Dim : "+actualWidth+" | "+actualHeight, 10, 100);
-
-    /*
-    AffineTransform at = new AffineTransform();
-    //at.rotate(2);
-    at.rotate(Math.PI/4,WIDTH / 2, HEIGHT / 2);
-    ((Graphics2D) g).transform(at);
-    */
-
-        /*
-        AffineTransform renderTransform = new AffineTransform();
-        // renderTransform.rotate(Math.PI/1,WIDTH/2,HEIGHT/2);
-        renderTransform.translate(_renderOffset.x, _renderOffset.y);
-        renderTransform.scale(_renderScale, _renderScale);
-        ((Graphics2D) g).transform(renderTransform);
-
-        // draw arena
-        if (Arena.active) Arena.drawBackground(g);
-
-        try {
-            _semaphore.acquire();
-            for (IDrawable drawable : _drawables) {
-                if (drawable instanceof Entity ent) {
-                    if (ent.getGroup() != actualGroupRender) continue;
-                }
-                drawable.draw(g);
-            }
-            _semaphore.release();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        // arena outline
-        if (Arena.active) Arena.drawOutline(g);
-
-        // UI render
-
-        g.setColor(Color.ORANGE);
-        float a = (float) (System.nanoTime() - _updateStart) / 1000000;
-        g.drawString("Game engine delta Time : " + game.getDeltaTime() + "ms", 10, 40);
-        g.drawString("Paint delta time : " + a + "ms", 10, 60);
-        g.drawString("Number of IUpdateble : " + game.getNumberOfUpdatable(), 10, 80);
-
-        g.setColor(Color.ORANGE);
-        Point p = game.input.getMousePos();
-        g.fillRect(p.x - 5, p.y - 5, 10, 10);
-        */
     }
 
     /** Close the game render */
     public void close() {
 
     }
+
+    public void addShape(RenderShape shape){
+        _shapes.add(shape);
+    }
+
 }
