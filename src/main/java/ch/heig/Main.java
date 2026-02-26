@@ -24,7 +24,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Window win = new Window("Bouncers");
+        Window win = new Window("Bouncers",800,800);
 
         List<Shape> listShape = new ArrayList<>();
 
@@ -44,6 +44,7 @@ public class Main {
             win.getCanvas().addShape(s.getRenderShape());
             listShape.add(s);
         }
+
 
 
         Timer timer = new Timer(UPDATE_RATE, new ActionListener() {

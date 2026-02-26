@@ -1,12 +1,8 @@
 package ch.heig.shapes;
 
 import ch.heig.Main;
-import ch.heig.render.Window;
 import ch.heig.renderShape.RenderShape;
 import ch.heig.utils.Vector2f;
-
-import javax.swing.text.Position;
-import java.awt.*;
 
 public abstract class Shape {
     private Vector2f _position;
@@ -48,17 +44,38 @@ public abstract class Shape {
         _direction.set(direction);
     }
 
-    // update
+    public Vector2f getBounceVector(){
+        Vector2f pos = getPosition().add(getDirection());
 
+        return new Vector2f(
+            (pos.x > Main.WIDTH)?1:(pos.x<0)?-1:0,
+            (pos.y > Main.HEIGHT)?1:(pos.y<0)?-1:0
+        );
+    }
+
+    // update
     public void update(){
         // ...
         Vector2f nextPos=getPosition().add(getDirection());
         // get bounce
         Vector2f dir = getDirection();
-        setDirection(
-                (nextPos.x > Main.WIDTH || nextPos.x<0)?-1f*dir.x:dir.x,
-                (nextPos.y> Main.HEIGHT || nextPos.y<0)?-1f*dir.y:dir.y
-        );
+
+
+        Vector2f bounceNormalVec = getBounceVector().normilize();
+
+        if(!bounceNormalVec.isNull()){
+            Vector2f vecDirector = new Vector2f(-1*bounceNormalVec.y,bounceNormalVec.x);
+            float scaleY=bounceNormalVec.dot(dir);
+            float scaleX=vecDirector.dot(dir);
+            Vector2f newDir=bounceNormalVec.mult(-1*scaleY).add(vecDirector.mult(scaleX));
+            setDirection(newDir);
+            /*
+            setDirection(
+                    (nextPos.x > Main.WIDTH || nextPos.x<0)?-1f*dir.x:dir.x,
+                    (nextPos.y> Main.HEIGHT || nextPos.y<0)?-1f*dir.y:dir.y
+            );*/
+        }
+
 
         setPosition(nextPos);
     }
