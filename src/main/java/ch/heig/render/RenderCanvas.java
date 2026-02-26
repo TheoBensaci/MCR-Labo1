@@ -15,19 +15,21 @@ public class RenderCanvas extends JPanel {
     public static final Color BACKGROUND_COLOR_2 = new Color(0x383850); // game render background colore
 
     // GAME SETTINGS
-    public static final int WIDTH = 800; // default render width
-    public static final int HEIGHT = 800; // default render height
 
-    public int actualWidth = WIDTH; // actual render width
-    public int actualHeight = HEIGHT; // actual render height
+    public int actualWidth; // actual render width
+    public int actualHeight; // actual render height
+    public final int width; // origin render width
+    public final int height; // origin render height
+
+
     private float _renderScale = 1f; // actual render scale
     private Vector2f _renderOffset = new Vector2f(0, 0);
 
     private List<RenderShape> _shapes=new ArrayList<>();
 
-    public RenderCanvas() {
-        this.actualWidth = WIDTH;
-        this.actualHeight = HEIGHT;
+    public RenderCanvas(int width, int height) {
+        this.width=this.actualWidth=width;
+        this.height=this.actualHeight=height;
         setFocusable(false);
 
     }
@@ -42,11 +44,11 @@ public class RenderCanvas extends JPanel {
         actualWidth = targetWidth;
         actualHeight = targetHeight;
         if (targetWidth > targetHeight) {
-            _renderScale = (float) (actualHeight) / HEIGHT;
-            _renderOffset.set((actualWidth - WIDTH * _renderScale) / 2, 0);
+            _renderScale = (float) (actualHeight) / width;
+            _renderOffset.set((actualWidth - height * _renderScale) / 2, 0);
         } else {
-            _renderScale = (float) (actualWidth) / WIDTH;
-            _renderOffset.set(0, (actualHeight - HEIGHT * _renderScale) / 2);
+            _renderScale = (float) (actualWidth) / height;
+            _renderOffset.set(0, (actualHeight - width * _renderScale) / 2);
         }
     }
 
@@ -95,7 +97,7 @@ public class RenderCanvas extends JPanel {
 
         // draw background 2
         g.setColor(BACKGROUND_COLOR_2);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, width, height);
 
         // draw shapes
         for (RenderShape shape : _shapes){

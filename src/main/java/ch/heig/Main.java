@@ -24,7 +24,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Window win = new Window("Bouncers");
+        Window win = new Window("Bouncers",800,800);
 
         List<Shape> listShape = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class Main {
         int nbCercle = (int)(Math.random() * 50);
         for (int i = 0; i < nbCercle; ++i){
             Circle c = new Circle(MIN_SIZE+(int)(Math.random() * MAX_SIZE),(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
-            win.getCanvas().addShape(c.getRenderShape());
+            win.getSwingWind().getCanvas().addShape(c.getRenderShape());
             listShape.add(c);
         }
 
@@ -41,9 +41,10 @@ public class Main {
         for (int i = 0; i < nbSquare; ++i){
             int size =MIN_SIZE+(int)(Math.random() * MAX_SIZE);
             Square s = new Square(size,size,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
-            win.getCanvas().addShape(s.getRenderShape());
+            win.getSwingWind().getCanvas().addShape(s.getRenderShape());
             listShape.add(s);
         }
+
 
 
         Timer timer = new Timer(UPDATE_RATE, new ActionListener() {
@@ -61,6 +62,6 @@ public class Main {
         timer.setRepeats(true); // Only execute once
         timer.start(); // Go go go!
 
-        win.setUpdateTimer(timer);
+        win.getSwingWind().setUpdateTimer(timer);
     }
 }
