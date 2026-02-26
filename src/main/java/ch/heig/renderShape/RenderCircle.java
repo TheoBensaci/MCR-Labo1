@@ -16,6 +16,6 @@ public class RenderCircle extends RenderShape {
     public void paint(Graphics g){
         g.setColor(this.color);
         int r = ((Circle)this.shape).radius;
-        g.fillOval((int)this.shape.getX(), (int)this.shape.getY(),r,r);
+        g.fillOval((int)this.shape.getX()-r/2, (int)this.shape.getY()-r/2,r,r);
     }
 }

@@ -15,6 +15,6 @@ public class RenderSquare extends RenderShape {
     public void paint(Graphics g) {
         g.setColor(this.color);
         Square sq = (Square)this.shape;
-        g.fillRect((int)this.shape.getX(), (int)this.shape.getY(), sq.width, sq.height);
+        g.fillRect((int)this.shape.getX()-sq.width/2, (int)this.shape.getY()-sq.height/2, sq.width, sq.height);
     }
 }

@@ -89,7 +89,6 @@ public class RenderCanvas extends JPanel {
         g.fillRect(0, 0, actualWidth + 10, actualHeight + 10);
 
         // apply tranform, use to creat screen shake
-
         AffineTransform renderTransform = new AffineTransform();
         renderTransform.translate(_renderOffset.x, _renderOffset.y);
         renderTransform.scale(_renderScale, _renderScale);
