@@ -10,11 +10,19 @@ import javax.swing.*;
 public class Window extends JFrame implements Displayer{
     private RenderCanvas _canvas;
     private Timer _updateTimer=null;
+    private static Window instance; //singleton
+    private final int defaultSize = 800;
 
-    public Window(String title, int width, int height) {
-        super(title);
 
-        _canvas= new RenderCanvas(width,height);
+    public static Window getInstance() {
+        if (instance == null)
+            instance = new Window(); // instanciation retardée
+        return instance;
+    }
+
+
+    private Window() {
+        _canvas= new RenderCanvas(defaultSize, defaultSize);
         add(_canvas);
 
         // create a empty canvas
@@ -77,13 +85,6 @@ public class Window extends JFrame implements Displayer{
         this._updateTimer=updateTimer;
     }
 
-
-
-    public Graphics2D getCanavasGraphics2D(){
-        return (Graphics2D)_canvas.getGraphics();
-    }
-
-
     public int getWidth(){
         return super.getWidth();
     }
@@ -93,5 +94,4 @@ public class Window extends JFrame implements Displayer{
     public Graphics2D getGraphics(){
         return (Graphics2D) super.getGraphics();
     }
-
 }

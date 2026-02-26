@@ -24,7 +24,8 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Window win = new Window("Bouncers",800,800);
+        Window win = Window.getInstance();
+        win.setTitle("Bouncer");
 
         List<Shape> listShape = new ArrayList<>();
 
