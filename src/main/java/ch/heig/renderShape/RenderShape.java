@@ -5,8 +5,8 @@ import ch.heig.shapes.Shape;
 import java.awt.*;
 
 public abstract class RenderShape {
-    Shape shape;
-    Color color;
+    public Shape shape;
+    public Color color;
 
     public RenderShape(Shape shape, Color color){
         this.shape = shape;

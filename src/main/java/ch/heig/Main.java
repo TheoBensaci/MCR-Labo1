@@ -58,8 +58,8 @@ public class Main {
                 win.repaint();
             }
         });
-        timer.setRepeats(true); // Only execute once
-        timer.start(); // Go go go!
+        timer.setRepeats(true);
+        timer.start();
 
         win.setUpdateTimer(timer);
     }

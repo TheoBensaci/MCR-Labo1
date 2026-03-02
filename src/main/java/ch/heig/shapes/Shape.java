@@ -1,6 +1,7 @@
 package ch.heig.shapes;
 
 import ch.heig.Main;
+import ch.heig.render.Window;
 import ch.heig.renderShape.RenderShape;
 import ch.heig.utils.Vector2f;
 
@@ -44,13 +45,10 @@ public abstract class Shape {
         _direction.set(direction);
     }
 
-    public Vector2f getBounceVector(){
-        Vector2f pos = getPosition().add(getDirection());
+    public abstract Vector2f getBounceVector();
 
-        return new Vector2f(
-            (pos.x > Main.WIDTH)?1:(pos.x<0)?-1:0,
-            (pos.y > Main.HEIGHT)?1:(pos.y<0)?-1:0
-        );
+    public void reCenter(){
+        _position.set(Window.getInstance().getWidth()/2, Window.getInstance().getHeight()/2);
     }
 
     // update

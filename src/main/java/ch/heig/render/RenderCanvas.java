@@ -12,14 +12,11 @@ import java.util.List;
 public class RenderCanvas extends JPanel {
 
     public static final Color BACKGROUND_COLOR = new Color(0x16162a); // game render background colore
-    public static final Color BACKGROUND_COLOR_2 = new Color(0x383850); // game render background colore
 
     // GAME SETTINGS
 
-    public int actualWidth; // actual render width
-    public int actualHeight; // actual render height
-    public final int width; // origin render width
-    public final int height; // origin render height
+    private int _width; // origin render width
+    private int _height; // origin render height
 
 
     private float _renderScale = 1f; // actual render scale
@@ -28,8 +25,8 @@ public class RenderCanvas extends JPanel {
     private List<RenderShape> _shapes=new ArrayList<>();
 
     public RenderCanvas(int width, int height) {
-        this.width=this.actualWidth=width;
-        this.height=this.actualHeight=height;
+        this._width=width;
+        this._height=height;
         setFocusable(false);
 
     }
@@ -41,20 +38,15 @@ public class RenderCanvas extends JPanel {
      * @param targetHeight target height
      */
     public void resizeRender(int targetWidth, int targetHeight) {
-        actualWidth = targetWidth;
-        actualHeight = targetHeight;
-        if (targetWidth > targetHeight) {
-            _renderScale = (float) (actualHeight) / width;
-            _renderOffset.set((actualWidth - height * _renderScale) / 2, 0);
-        } else {
-            _renderScale = (float) (actualWidth) / height;
-            _renderOffset.set(0, (actualHeight - width * _renderScale) / 2);
-        }
+        this._width = targetWidth;
+        this._height = targetHeight;
+
+        reCenterShapes();
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(actualWidth, actualHeight);
+        return new Dimension(_width, _height);
     }
 
     @Override
@@ -71,19 +63,9 @@ public class RenderCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // draw background 1
-        g.setColor(BACKGROUND_COLOR);
-        g.fillRect(0, 0, actualWidth + 10, actualHeight + 10);
-
-        // apply tranform, use to creat screen shake
-        AffineTransform renderTransform = new AffineTransform();
-        renderTransform.translate(_renderOffset.x, _renderOffset.y);
-        renderTransform.scale(_renderScale, _renderScale);
-        ((Graphics2D) g).transform(renderTransform);
-
         // draw background 2
-        g.setColor(BACKGROUND_COLOR_2);
-        g.fillRect(0, 0, width, height);
+        g.setColor(BACKGROUND_COLOR);
+        g.fillRect(0, 0, _width, _height);
 
         // draw shapes
         for (RenderShape shape : _shapes){
@@ -92,11 +74,16 @@ public class RenderCanvas extends JPanel {
 
 
         g.setColor(Color.ORANGE);
-        g.drawString("Dim : "+actualWidth+" | "+actualHeight, 10, 100);
     }
 
 
     public void addShape(RenderShape shape){
         _shapes.add(shape);
+    }
+
+    public void reCenterShapes(){
+        for (RenderShape shape : _shapes){
+            shape.shape.reCenter();
+        }
     }
 }
