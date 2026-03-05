@@ -1,11 +1,10 @@
 package ch.heig.render;
 
-import ch.heig.renderShape.RenderShape;
+import ch.heig.renderShape.Renderer;
 import ch.heig.utils.Vector2f;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class RenderCanvas extends JPanel {
     private float _renderScale = 1f; // actual render scale
     private Vector2f _renderOffset = new Vector2f(0, 0);
 
-    private List<RenderShape> _shapes=new ArrayList<>();
+    private List<Renderer> _shapes=new ArrayList<>();
 
     public RenderCanvas(int width, int height) {
         this._width=width;
@@ -40,8 +39,6 @@ public class RenderCanvas extends JPanel {
     public void resizeRender(int targetWidth, int targetHeight) {
         this._width = targetWidth;
         this._height = targetHeight;
-
-        reCenterShapes();
     }
 
     @Override
@@ -67,23 +64,11 @@ public class RenderCanvas extends JPanel {
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, _width, _height);
 
-        // draw shapes
-        for (RenderShape shape : _shapes){
-            shape.paint(g);
-        }
-
-
-        g.setColor(Color.ORANGE);
+        ((Graphics2D)g).drawImage(Window.getInstance().flush(),0,0,null);
     }
 
 
-    public void addShape(RenderShape shape){
+    public void addShape(Renderer shape){
         _shapes.add(shape);
-    }
-
-    public void reCenterShapes(){
-        for (RenderShape shape : _shapes){
-            shape.shape.reCenter();
-        }
     }
 }

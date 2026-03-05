@@ -1,12 +1,14 @@
 package ch.heig;
 
 import ch.heig.render.Window;
+import ch.heig.shapes.Bouncable;
 import ch.heig.shapes.Circle;
 import ch.heig.shapes.Shape;
 import ch.heig.shapes.Square;
 import ch.heig.utils.Vector2f;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -19,13 +21,14 @@ public class Main {
     public final static int MIN_SIZE=20;
     public final static int MAX_SIZE=50-MIN_SIZE;
 
-    private final LinkedList<Shape> bouncers = new LinkedList<>();
+    private final LinkedList<Bouncable> bouncers = new LinkedList<>();
     private Window win;
 
 
     public Main(){
         win = Window.getInstance();
         win.setTitle("Bouncer");
+
 
 
         // init shapes
@@ -50,8 +53,9 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent arg0) {
 
-                for (Shape s : bouncers){
-                    s.update();
+                for (Bouncable s : bouncers){
+                    s.move();
+                    s.draw();
                 }
 
                 // repaint

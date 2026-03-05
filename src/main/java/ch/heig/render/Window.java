@@ -1,10 +1,8 @@
 package ch.heig.render;
 
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class Window extends JFrame implements Displayer{
@@ -12,6 +10,8 @@ public class Window extends JFrame implements Displayer{
     private Timer _updateTimer=null;
     private static Window instance; //singleton
     private final int defaultSize = 800;
+    private Graphics2D  _g2d;
+    private BufferedImage _img;
 
 
     public static Window getInstance() {
@@ -22,6 +22,9 @@ public class Window extends JFrame implements Displayer{
 
 
     private Window() {
+        _img = new BufferedImage(defaultSize, defaultSize, BufferedImage.TYPE_INT_ARGB);
+        _g2d = _img.createGraphics();
+
         _canvas= new RenderCanvas(defaultSize, defaultSize);
         add(_canvas);
 
@@ -85,7 +88,26 @@ public class Window extends JFrame implements Displayer{
     public int getHeight(){
         return super.getHeight();
     }
+
     public Graphics2D getGraphics(){
-        return (Graphics2D) super.getGraphics();
+        return _g2d;
+    }
+
+    public BufferedImage flush(){
+        _g2d.dispose();
+        BufferedImage bufferedImage = _img;
+        _img = new BufferedImage(defaultSize, defaultSize, BufferedImage.TYPE_INT_ARGB);
+        _g2d = _img.createGraphics();
+        return bufferedImage;
+    }
+
+    @Override
+    public void setTitle(String title){
+        super.setTitle(title);
+    }
+
+    @Override
+    public void addKeyListener(KeyAdapter keyAdapter) {
+
     }
 }

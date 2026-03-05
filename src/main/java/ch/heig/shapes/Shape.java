@@ -1,13 +1,17 @@
 package ch.heig.shapes;
 
-import ch.heig.Main;
 import ch.heig.render.Window;
-import ch.heig.renderShape.RenderShape;
+import ch.heig.renderShape.Renderer;
+import ch.heig.renderShape.RendererCircle;
 import ch.heig.utils.Vector2f;
 
-public abstract class Shape {
+import java.awt.*;
+
+public abstract class Shape implements Bouncable {
     private Vector2f _position;
     private Vector2f _direction;
+    protected Color _color;
+
     public Shape(int x, int y, Vector2f direction){
         _position=new Vector2f(x,y);
         _direction=direction;
@@ -15,7 +19,7 @@ public abstract class Shape {
 
     public float getX(){ return this._position.x; }
     public float getY(){ return this._position.y; }
-    public abstract RenderShape getRenderShape();
+    public abstract Renderer getRenderShape();
     public Vector2f getPosition(){
         return _position.copy();
     }
@@ -47,12 +51,9 @@ public abstract class Shape {
 
     public abstract Vector2f getBounceVector();
 
-    public void reCenter(){
-        _position.set(Window.getInstance().getWidth()/2, Window.getInstance().getHeight()/2);
-    }
-
     // update
-    public void update(){
+    @Override
+    public void move(){
         // ...
         Vector2f nextPos=getPosition().add(getDirection());
         // get bounce
@@ -76,5 +77,20 @@ public abstract class Shape {
 
 
         setPosition(nextPos);
+    }
+
+    @Override
+    public Color getColor() {
+        return _color;
+    }
+
+    @Override
+    public void draw() {
+        getRenderShape().display(Window.getInstance().getGraphics(), this);
+    }
+
+    @Override
+    public Shape getShape() {
+        return this;
     }
 }

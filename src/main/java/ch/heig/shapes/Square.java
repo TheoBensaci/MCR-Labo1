@@ -1,9 +1,8 @@
 package ch.heig.shapes;
 
-import ch.heig.Main;
 import ch.heig.render.Window;
-import ch.heig.renderShape.RenderShape;
-import ch.heig.renderShape.RenderSquare;
+import ch.heig.renderShape.Renderer;
+import ch.heig.renderShape.RendererSquare;
 import ch.heig.utils.Vector2f;
 
 import java.awt.*;
@@ -18,6 +17,7 @@ public class Square extends Shape{
         super(x,y,direction);
         this.width=width;
         this.height=height;
+        this._color= Color.YELLOW;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Square extends Shape{
     }
 
     @Override
-    public RenderShape getRenderShape() {
-        return new RenderSquare(this, Color.yellow);
+    public Renderer getRenderShape() {
+        return new RendererSquare();
     }
 }

@@ -1,9 +1,8 @@
 package ch.heig.shapes;
 
-import ch.heig.Main;
 import ch.heig.render.Window;
-import ch.heig.renderShape.RenderCircle;
-import ch.heig.renderShape.RenderShape;
+import ch.heig.renderShape.Renderer;
+import ch.heig.renderShape.RendererCircle;
 import ch.heig.utils.Vector2f;
 
 import java.awt.*;
@@ -16,6 +15,7 @@ public class Circle extends Shape {
     public Circle(int radius, int x, int y, Vector2f direction){
         super(x,y,direction);
         this.radius=radius;
+        this._color=Color.BLUE;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Circle extends Shape {
     }
 
     @Override
-    public RenderShape getRenderShape() {
-        return new RenderCircle(this, new Color(0xff0055));
+    public Renderer getRenderShape() {
+        return new RendererCircle();
     }
 }

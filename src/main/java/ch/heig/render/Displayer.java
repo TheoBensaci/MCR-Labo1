@@ -1,6 +1,7 @@
 package ch.heig.render;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 
 public interface Displayer {
     int getWidth();
@@ -8,4 +9,5 @@ public interface Displayer {
     Graphics2D getGraphics();
     void repaint();
     void setTitle(String title);
+    void addKeyListener(KeyAdapter keyAdapter);
 }
