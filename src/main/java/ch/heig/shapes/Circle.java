@@ -1,5 +1,6 @@
 package ch.heig.shapes;
 
+import ch.heig.render.SwingWindow;
 import ch.heig.render.Window;
 import ch.heig.renderShape.Renderer;
 import ch.heig.renderShape.RendererCircle;

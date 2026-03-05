@@ -5,6 +5,7 @@ import ch.heig.utils.Vector2f;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class RenderCanvas extends JPanel {
     private Vector2f _renderOffset = new Vector2f(0, 0);
 
     private List<Renderer> _shapes=new ArrayList<>();
+
+    private Graphics2D  _g2d=null;
+    private BufferedImage _img;
 
     public RenderCanvas(int width, int height) {
         this._width=width;
@@ -63,12 +67,23 @@ public class RenderCanvas extends JPanel {
         // draw background 2
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, _width, _height);
-
-        ((Graphics2D)g).drawImage(Window.getInstance().flush(),0,0,null);
+        _g2d.dispose();
+        ((Graphics2D)g).drawImage(_img,0,0,null);
+        clearBuffer();
     }
 
 
     public void addShape(Renderer shape){
         _shapes.add(shape);
+    }
+
+
+    public Graphics2D getBufferGraphics(){
+        return _g2d;
+    }
+
+    public void clearBuffer(){
+        _img=new BufferedImage(Window.getInstance().getWidth(),Window.getInstance().getHeight(), BufferedImage.TYPE_INT_ARGB);
+        _g2d=_img.createGraphics();
     }
 }
