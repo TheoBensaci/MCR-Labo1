@@ -3,6 +3,7 @@ package ch.heig.render;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Window implements Displayer{
 
@@ -51,7 +52,7 @@ public class Window implements Displayer{
 
     @Override
     public void addKeyListener(KeyAdapter keyAdapter) {
-
+        _window.addKeyListener(keyAdapter);
     }
 
     public void setUpdateTimer(Timer updateTimer){

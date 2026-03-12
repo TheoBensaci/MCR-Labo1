@@ -2,14 +2,14 @@ package ch.heig;
 
 import ch.heig.render.SwingWindow;
 import ch.heig.render.Window;
-import ch.heig.shapes.Bouncable;
-import ch.heig.shapes.Circle;
-import ch.heig.shapes.Square;
+import ch.heig.shapes.*;
 import ch.heig.utils.Vector2f;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
 public class Main {
@@ -20,34 +20,47 @@ public class Main {
     public final static int MIN_SIZE=20;
     public final static int MAX_SIZE=50-MIN_SIZE;
 
-    private final LinkedList<Bouncable> bouncers = new LinkedList<>();
+    private LinkedList<Bouncable> bouncers = new LinkedList<>();
     private Window win;
+
+    private final int NB_SHAPE = 10;
 
 
     public Main(){
         win = Window.getInstance();
         win.setTitle("Bouncer");
 
+        KeyAdapter keyAdapter = new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_E:
+                        bouncers = new LinkedList<>();
+                        break;
+                    case KeyEvent.VK_F:
 
+                        for (int i = 0; i < NB_SHAPE; ++i){
+                            Circle c = new Circle(10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            Square s = new Square(10,10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            bouncers.add(c);
+                            bouncers.add(s);
+                        }
+                        break;
+                    case KeyEvent.VK_B:
+                        for (int i = 0; i < NB_SHAPE; ++i){
+                            CircleBorder c = new CircleBorder(10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            SquareBorder s = new SquareBorder(10,10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            bouncers.add(c);
+                            bouncers.add(s);
+                        }
+                        break;
+                    case KeyEvent.VK_Q:
+                        System.exit(0);
+                        break;
+                }
+            }
+        };
 
-
-
-
-        // init shapes
-        int nbCercle = 10;//(int)(Math.random() * 50);
-        for (int i = 0; i < nbCercle; ++i){
-            Circle c = new Circle(10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
-            //win.getCanvas().addShape(c.getRenderShape());
-            bouncers.add(c);
-        }
-
-        int nbSquare = 10;
-        for (int i = 0; i < nbSquare; ++i){
-            int size =MIN_SIZE+(int)(Math.random() * MAX_SIZE);
-            Square s = new Square(10,10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
-            //win.getCanvas().addShape(s.getRenderShape());
-            bouncers.add(s);
-        }
+        win.addKeyListener(keyAdapter);
     }
 
     public void run(){
