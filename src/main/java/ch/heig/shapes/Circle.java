@@ -23,8 +23,12 @@ public class Circle extends Shape {
     public Vector2f getBounceVector() {
         Vector2f pos = getPosition().add(getDirection());
         return new Vector2f(
-                (pos.x+(float)this.radius/2 > Window.getInstance().getWidth())?1:(pos.x-(float)this.radius/2 <0)?-1:0,
-                (pos.y+(float)this.radius/2  > Window.getInstance().getHeight())?1:(pos.y-(float)this.radius/2 <0)?-1:0
+                (pos.x+(float)this.radius > Window.getInstance().getWidth())?
+                        pos.x+(float)this.radius-Window.getInstance().getWidth()
+                        :(pos.x-(float)this.radius <0)?(pos.x-(float)this.radius):0,
+                (pos.y+(float)this.radius > Window.getInstance().getHeight())?
+                        pos.y+(float)this.radius-Window.getInstance().getHeight()
+                        :(pos.y-(float)this.radius <0)?(pos.y-(float)this.radius):0
         );
     }
 

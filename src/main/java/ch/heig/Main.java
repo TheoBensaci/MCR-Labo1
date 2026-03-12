@@ -34,17 +34,17 @@ public class Main {
 
 
         // init shapes
-        int nbCercle = (int)(Math.random() * 50);
+        int nbCercle = 10;//(int)(Math.random() * 50);
         for (int i = 0; i < nbCercle; ++i){
-            Circle c = new Circle(MIN_SIZE+(int)(Math.random() * MAX_SIZE),(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+            Circle c = new Circle(10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
             //win.getCanvas().addShape(c.getRenderShape());
             bouncers.add(c);
         }
 
-        int nbSquare = (int)(Math.random() * 50);
+        int nbSquare = 10;
         for (int i = 0; i < nbSquare; ++i){
             int size =MIN_SIZE+(int)(Math.random() * MAX_SIZE);
-            Square s = new Square(size,size,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+            Square s = new Square(10,10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
             //win.getCanvas().addShape(s.getRenderShape());
             bouncers.add(s);
         }

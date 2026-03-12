@@ -30,7 +30,7 @@ public abstract class Shape implements Bouncable {
 
     // set
     public void setPosition(float x, float y){
-        _position.set(x,y);
+        setPosition(new Vector2f(x,y));
     }
     public void setPosition(Vector2f position){
         _position.set(position);
@@ -54,30 +54,26 @@ public abstract class Shape implements Bouncable {
     // update
     @Override
     public void move(){
-        // ...
-        Vector2f nextPos=getPosition().add(getDirection());
         // get bounce
         Vector2f dir = getDirection();
 
 
-        Vector2f bounceNormalVec = getBounceVector().normilize();
+        Vector2f bounceVec = getBounceVector();
+        Vector2f bounceNormalVec = bounceVec.copy().normilize();
 
         if(!bounceNormalVec.isNull()){
+            setPosition(getPosition().sub(bounceVec));
             Vector2f vecDirector = new Vector2f(-1*bounceNormalVec.y,bounceNormalVec.x);
             float scaleY=bounceNormalVec.dot(dir);
             float scaleX=vecDirector.dot(dir);
             Vector2f newDir=bounceNormalVec.mult(-1*scaleY).add(vecDirector.mult(scaleX));
             setDirection(newDir);
-            /*
-            setDirection(
-                    (nextPos.x > Main.WIDTH || nextPos.x<0)?-1f*dir.x:dir.x,
-                    (nextPos.y> Main.HEIGHT || nextPos.y<0)?-1f*dir.y:dir.y
-            );*/
         }
 
 
-        setPosition(nextPos);
+        setPosition(getPosition().add(getDirection()));
     }
+
 
     @Override
     public Color getColor() {

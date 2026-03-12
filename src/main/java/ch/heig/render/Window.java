@@ -26,12 +26,12 @@ public class Window implements Displayer{
 
     @Override
     public int getWidth() {
-        return _window.getWidth();
+        return _window.getCanvas().getWidth();
     }
 
     @Override
     public int getHeight() {
-        return _window.getHeight();
+        return _window.getCanvas().getHeight();
     }
 
     @Override

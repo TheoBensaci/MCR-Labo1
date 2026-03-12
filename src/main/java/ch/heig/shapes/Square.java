@@ -21,12 +21,17 @@ public class Square extends Shape{
         this._color= Color.YELLOW;
     }
 
+
     @Override
     public Vector2f getBounceVector() {
         Vector2f pos = getPosition().add(getDirection());
         return new Vector2f(
-                (pos.x+(float)this.width/2 > Window.getInstance().getWidth())?1:(pos.x-(float)this.width/2 <0)?-1:0,
-                (pos.y+(float)this.height/2  > Window.getInstance().getHeight())?1:(pos.y-(float)this.height/2 <0)?-1:0
+                (pos.x+(float)this.width/2 > Window.getInstance().getWidth())?
+                        pos.x+(float)this.width/2-Window.getInstance().getWidth()
+                        :(pos.x-(float)this.width/2 <0)?(pos.x-(float)this.width/2):0,
+                (pos.y+(float)this.height/2 > Window.getInstance().getHeight())?
+                        pos.y+(float)this.height/2-Window.getInstance().getHeight()
+                        :(pos.y-(float)this.height/2 <0)?(pos.y-(float)this.height/2):0
         );
     }
 

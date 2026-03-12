@@ -10,6 +10,6 @@ public class RendererCircle implements Renderer{
     public void display(Graphics2D graphics, Bouncable bouncable) {
         graphics.setColor(bouncable.getColor());
         int r = ((Circle)bouncable.getShape()).radius;
-        graphics.fillOval((int)bouncable.getShape().getX()-r/2, (int)bouncable.getShape().getY()-r/2,r,r);
+        graphics.fillOval((int)bouncable.getShape().getX()-r, (int)bouncable.getShape().getY()-r,r*2,r*2);
     }
 }
