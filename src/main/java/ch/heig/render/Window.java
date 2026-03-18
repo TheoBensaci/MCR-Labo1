@@ -1,9 +1,15 @@
+/**
+ *   Autheur: Theo Bensaci
+ *   Date: 13:59 19.02.2026
+ *   Description: class use to wrap the JFram and implement Displayer cleanly 
+ */
+
 package ch.heig.render;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
+import javax.swing.Timer;
 
 public class Window implements Displayer{
 
@@ -55,6 +61,10 @@ public class Window implements Displayer{
         _window.addKeyListener(keyAdapter);
     }
 
+    /**
+     * Link to the setUpdateTimer of SwingWindow | use to link a timer to the window
+     * @param updateTimer
+     */
     public void setUpdateTimer(Timer updateTimer){
         _window.setUpdateTimer(updateTimer);
     }

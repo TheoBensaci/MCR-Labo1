@@ -1,3 +1,9 @@
+/**
+ *   Autheur: Theo Bensaci
+ *   Date: 14:09 19.02.2026
+ *   Description: utils use to manage 2d (math) vector
+ */
+
 package ch.heig.utils;
 
 public class Vector2f {

@@ -1,10 +1,17 @@
+/**
+ *   Autheur: Theo Bensaci, Maxime Regenass
+ *   Date: 15:20 05.03.2026
+ *   Description: render of a empty square with border
+ */
+
 package ch.heig.renderShape;
+
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
 
 import ch.heig.shapes.Bouncable;
 import ch.heig.shapes.Square;
 import ch.heig.shapes.SquareBorder;
-
-import java.awt.*;
 
 public class RendererSquareBorder extends RendererSquare{
     @Override

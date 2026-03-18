@@ -1,3 +1,9 @@
+/**
+ *   Autheur: Theo Bensaci, Maxime Regenass
+ *   Date: 13:54 19.02.2026
+ *   Description: Main of the app
+ */
+
 package ch.heig;
 
 import ch.heig.render.SwingWindow;
@@ -17,8 +23,8 @@ public class Main {
     public final static int UPDATE_RATE=20;
     public final static int WIDTH=800;
     public final static int HEIGHT=800;
-    public final static int MIN_SIZE=20;
-    public final static int MAX_SIZE=50-MIN_SIZE;
+    public final static int MIN_SIZE=10;
+    public final static int MAX_SIZE=20-MIN_SIZE;
 
     private LinkedList<Bouncable> bouncers = new LinkedList<>();
     private Window win;
@@ -39,16 +45,18 @@ public class Main {
                     case KeyEvent.VK_F:
 
                         for (int i = 0; i < NB_SHAPE; ++i){
-                            Circle c = new Circle(10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
-                            Square s = new Square(10,10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            Circle c = new Circle(MIN_SIZE+(int)(Math.random()*MAX_SIZE),(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            int size = MIN_SIZE+(int)(Math.random()*MAX_SIZE);
+                            Square s = new Square(size,size,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
                             bouncers.add(c);
                             bouncers.add(s);
                         }
                         break;
                     case KeyEvent.VK_B:
                         for (int i = 0; i < NB_SHAPE; ++i){
-                            CircleBorder c = new CircleBorder(10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
-                            SquareBorder s = new SquareBorder(10,10,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            CircleBorder c = new CircleBorder(MIN_SIZE+(int)(Math.random()*MAX_SIZE),(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
+                            int size = MIN_SIZE+(int)(Math.random()*MAX_SIZE);
+                            SquareBorder s = new SquareBorder(size,size,(int)(Math.random()*WIDTH),(int)(Math.random()*HEIGHT),new Vector2f((float)Math.random(),(float) Math.random()).normilize().mult((float)Math.random()*10));
                             bouncers.add(c);
                             bouncers.add(s);
                         }

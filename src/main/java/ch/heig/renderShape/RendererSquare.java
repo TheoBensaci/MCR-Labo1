@@ -1,9 +1,15 @@
+/**
+ *   Autheur: Theo Bensaci, Maxime Regenass
+ *   Date: 15:20 05.03.2026
+ *   Description: Render of a square
+ */
+
 package ch.heig.renderShape;
+
+import java.awt.Graphics2D;
 
 import ch.heig.shapes.Bouncable;
 import ch.heig.shapes.Square;
-
-import java.awt.*;
 
 public class RendererSquare implements Renderer{
     @Override

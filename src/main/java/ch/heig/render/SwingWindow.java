@@ -1,9 +1,18 @@
+/**
+ *   Autheur: Theo Bensaci, Maxime Regenass
+ *   Date: 13:59 19.02.2026
+ *   Description: JFram use for the render
+ */
+
 package ch.heig.render;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import javax.swing.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+import javax.swing.Timer;
 
 public class SwingWindow extends JFrame{
     private RenderCanvas _canvas;
@@ -14,9 +23,11 @@ public class SwingWindow extends JFrame{
 
     public SwingWindow() {
 
+        // create canvas and add it to the window
         _canvas= new RenderCanvas(defaultSize, defaultSize);
         add(_canvas);
 
+        // add listener
         addWindowStateListener(
                 e -> {
                     resizeCanavas(getContentPane().getSize().width, getContentPane().getSize().height);
@@ -48,6 +59,8 @@ public class SwingWindow extends JFrame{
                         if(_updateTimer!=null)_updateTimer.stop();
                     }
                 });
+
+        // pack and make it visible
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -68,6 +81,10 @@ public class SwingWindow extends JFrame{
         _canvas.resizeRender(newWindowWidth, newWindowHeight);
     }
 
+    /**
+     * Use to link the a update timer with the window
+     * @param updateTimer timer use to update things
+     */
     public void setUpdateTimer(Timer updateTimer){
         this._updateTimer=updateTimer;
     }

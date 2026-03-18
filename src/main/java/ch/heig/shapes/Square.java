@@ -1,12 +1,17 @@
+/**
+ *   Autheur: Theo Bensaci, Maxime Regenass
+ *   Date: 15:11 19.02.2026
+ *   Description: square
+ */
+
 package ch.heig.shapes;
 
-import ch.heig.render.SwingWindow;
+import java.awt.Color;
+
 import ch.heig.render.Window;
 import ch.heig.renderShape.Renderer;
 import ch.heig.renderShape.RendererSquare;
 import ch.heig.utils.Vector2f;
-
-import java.awt.*;
 
 
 public class Square extends Shape{
@@ -23,7 +28,7 @@ public class Square extends Shape{
 
 
     @Override
-    public Vector2f getBounceVector() {
+    public Vector2f getBounceNormalVector() {
         Vector2f pos = getPosition().add(getDirection());
         return new Vector2f(
                 (pos.x+(float)this.width/2 > Window.getInstance().getWidth())?
